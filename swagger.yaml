@@ -1,0 +1,105 @@
+openapi: 3.0.0
+info:
+  title: Stakefish challenge API
+  version: 0.1.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /:
+    get:
+      summary: Get the current date, version and whether Kubernetes is used
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    example: "0.1.0"
+                  date:
+                    type: integer
+                    example: 1663534325
+                  kubernetes:
+                    type: boolean
+                    example: false
+  /v1/tools/lookup:
+    get:
+      summary: Resolve the IPv4 addresses for the given domain
+      parameters:
+        - name: domain
+          in: query
+          required: true
+          description: The domain to resolve
+          schema:
+            type: string
+            example: example.com
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  addresses:
+                    type: array
+                    items:
+                      type: string
+                      example: 127.0.0.1
+        400:
+          description: Bad Request
+        500:
+          description: Internal Server Error
+  /v1/tools/validate:
+    post:
+      summary: Validate if the input is an IPv4 address or not
+      parameters:
+        - name: address
+          in: query
+          required: true
+          description: The IP address to validate
+          schema:
+            type: string
+            example: 127.0.0.1
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                    example: true
+        400:
+          description: Bad Request
+        404:
+          description: Not found
+  /v1/history:
+    get:
+      summary: Retrieve the latest 20 saved queries
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    query:
+                      type: string
+                      example: example.com
+                  required:
+                    - id
+                    - query
+        404:
+          description: Not found
