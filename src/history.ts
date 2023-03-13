@@ -1,5 +1,3 @@
-import pkg from 'pg';
-const { Pool } = pkg;
 import knex from '../knex/knex.js';
 import { Knex } from 'knex';
 import { Query } from './models'
