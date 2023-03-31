@@ -1,4 +1,7 @@
-# Stakefish challenge project
+# DNS lookup tool
+
+## Resolve the IPv4 addresses for the given domain; validate the input, store and retrieve the query history.
+##Done with Node/Express, Typescript, Knex, Postgres.
 
 ### Easy setup with docker
 ```
